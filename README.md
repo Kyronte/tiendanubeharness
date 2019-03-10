@@ -6,7 +6,9 @@
 
 3.- Run 'gradle cleanTest test'.
 
-**NOTE:**
+**NOTES:**
+
+Git must be installed in the local machine to be able to checkout project.
 
 Some products have been left created on purpose on the account.
 
