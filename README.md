@@ -4,6 +4,6 @@
 
 2.- Navigate to the folder project.
 
-3.- Run 'gradle test'.
+3.- Run 'gradle cleanTest test'.
  
 
