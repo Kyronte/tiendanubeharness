@@ -51,7 +51,7 @@ public class ProductPage {
     public void removeAllProducts() {
         AdminNavbar adminNavbar = new AdminNavbar();
         adminNavbar.goToMyProducts();
-        $(By.xpath("//*[@id=\"product-table\"]/tbody/tr[1]/td/div/label/span/span[2]")).click();
+        $(By.cssSelector("#product-table > tbody > tr:nth-child(1) > td > div > label > span > span:nth-child(2)")).click();
         $(By.id("product-select")).selectOptionByValue("destroy");
     }
 

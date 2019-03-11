@@ -40,7 +40,9 @@ public class ProductTest implements TestInterface {
 
         productPage.orderByCreatedDescending();
 
-        $(By.xpath("//*[@id=\"product-table\"]/tbody/tr/td[3]/p/a")).shouldHave(text(productPage.getProductName()));
+        $(By.cssSelector("#product-table > tbody > tr:nth-child(1) > td:nth-child(3) > p:nth-child(1) > a:nth-child(1)")).shouldHave(text(productPage.getProductName()));
+
+
     }
 
     @After
