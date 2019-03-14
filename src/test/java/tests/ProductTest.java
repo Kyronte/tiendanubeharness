@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import pages.AdminNavbar;
 import pages.LoginPage;
+import pages.helper.ProductHelper;
 import pages.product.ProductPage;
 import tests.interfaces.TestInterface;
 
@@ -22,6 +23,7 @@ public class ProductTest implements TestInterface {
         this.loginPage = new LoginPage();
         this.adminNavbar = new AdminNavbar();
         this.productPage = new ProductPage();
+        //init product hlper?
     }
 
     @Test
@@ -38,10 +40,10 @@ public class ProductTest implements TestInterface {
 
         productPage.orderByCreatedDescending();
 
-        assertEquals(productPage.getProductName(), productPage.fetchProductFromPage().getName());
-        assertEquals(productPage.getProductPrice(), productPage.convertCurrencyToString(productPage.fetchProductFromPage().getPrice()));
-        assertEquals(productPage.getProductStock(), productPage.fetchProductFromPage().getStock());
-        
+        assertEquals(productPage.getProduct().getName(), productPage.fetchProductFromPage().getName());
+        assertEquals(productPage.getProduct().getPrice(), ProductHelper.convertCurrencyToString(productPage.fetchProductFromPage().getPrice()));
+        assertEquals(productPage.getProduct().getStock(), productPage.fetchProductFromPage().getStock());
+
 
     }
 
