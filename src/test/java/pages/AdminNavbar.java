@@ -5,14 +5,19 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class AdminNavbar {
 
+    //Selectors
+    private final String accordionMenuSelector = "accordion-menu";
+    private final String productMenuSelector = "li[data-code='products']";
+    private final String addNewProductLinkSelector = "#item-3 > ul > li:nth-child(2) > a";
+    private final String myProductsLinkSelector = "#item-3 > ul > li:nth-child(1) > a";
 
     public void addNewProduct() {
-        $(By.id("accordion-menu")).find(By.cssSelector("li[data-code='products']")).click();
-        $(By.cssSelector("#item-3 > ul > li:nth-child(2) > a")).click();
+        $(By.id(accordionMenuSelector)).find(By.cssSelector(productMenuSelector)).click();
+        $(By.cssSelector(addNewProductLinkSelector)).click();
     }
 
     public void goToMyProducts() {
-        $(By.cssSelector("#item-3 > ul > li:nth-child(1) > a")).click();
+        $(By.cssSelector(myProductsLinkSelector)).click();
     }
 
 }

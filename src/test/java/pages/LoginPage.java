@@ -9,10 +9,15 @@ public class LoginPage {
     private final String username = "automation+interview@tiendanube.com";
     private final String pàssword = "interview123";
 
+    //Selectors
+    private final String emailFieldSelector = "user-mail";
+    private final String passwordFieldSelector = "pass";
+    private final String loginButtonSelector = "login";
+
     public void handleUserLogin() {
-        $(By.id("user-mail")).sendKeys(username);
-        $(By.id("pass")).sendKeys(pàssword);
-        $(By.name("login")).click();
+        $(By.id(emailFieldSelector)).sendKeys(username);
+        $(By.id(passwordFieldSelector)).sendKeys(pàssword);
+        $(By.name(loginButtonSelector)).click();
 
     }
 

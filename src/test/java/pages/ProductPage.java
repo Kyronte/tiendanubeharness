@@ -12,6 +12,18 @@ public class ProductPage {
     private final String productPrice = "10.00";
     private final String productStock = "5";
 
+    //Selectors
+    private final String productNameField = "name-es_AR";
+    private final String descriptionFrameId = "cke_1_contents";
+    private final String descriptionBody = "body";
+    private final String priceField = "price";
+    private final String stockField = "stock";
+    private final String productSubmitId = "product-submit";
+    private final String submitButtonId = "submit-button";
+    private final String firstProductCheckbox = "#product-table > tbody > tr:nth-child(1) > td > div > label > span > span:nth-child(2)";
+    private final String productSelectId = "product-select";
+    private final String sortOrderId = "sort-order-inline";
+
     public void handleProductCreation() {
         fillProductInfo();
         submitProductCreation();
@@ -22,20 +34,20 @@ public class ProductPage {
     }
 
     public void fillProductInfo(final String productName, final String productDescription, final String productPrice, final String productStock) {
-        $(By.id("name-es_AR")).sendKeys(productName);
+        $(By.id(productNameField)).sendKeys(productName);
 
-        switchTo().frame($(By.id("cke_1_contents")).find(By.tagName("iframe")));
-        $(By.tagName("body")).sendKeys(productDescription);
+        switchTo().frame($(By.id(descriptionFrameId)).find(By.tagName("iframe")));
+        $(By.tagName(descriptionBody)).sendKeys(productDescription);
 
         switchTo().parentFrame();
 
-        $(By.id("price")).sendKeys(productPrice);
-        $(By.id("stock")).sendKeys(productStock);
+        $(By.id(priceField)).sendKeys(productPrice);
+        $(By.id(stockField)).sendKeys(productStock);
 
     }
 
     private void submitProductCreation() {
-        SelenideElement button = $(By.id("product-submit")).find(By.id("submit-button"));
+        SelenideElement button = $(By.id(productSubmitId)).find(By.id(submitButtonId));
         hasPublishProductBeenClicked(button);
     }
 
@@ -51,8 +63,8 @@ public class ProductPage {
     public void removeAllProducts() {
         AdminNavbar adminNavbar = new AdminNavbar();
         adminNavbar.goToMyProducts();
-        $(By.cssSelector("#product-table > tbody > tr:nth-child(1) > td > div > label > span > span:nth-child(2)")).click();
-        $(By.id("product-select")).selectOptionByValue("destroy");
+        $(By.cssSelector(firstProductCheckbox)).click();
+        $(By.id(productSelectId)).selectOptionByValue("destroy");
     }
 
 
@@ -61,6 +73,6 @@ public class ProductPage {
     }
 
     public void orderByCreatedDescending() {
-        $(By.id("sort-order-inline")).selectOptionByValue("created-descending");
+        $(By.id(sortOrderId)).selectOptionByValue("created-descending");
     }
 }
