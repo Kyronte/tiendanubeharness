@@ -1,17 +1,15 @@
 package tests;
 
-import static com.codeborne.selenide.Condition.text;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import pages.AdminNavbar;
 import pages.LoginPage;
-import pages.ProductPage;
+import pages.product.ProductPage;
 import tests.interfaces.TestInterface;
 
 import static com.codeborne.selenide.Selenide.*;
+import static org.junit.Assert.assertEquals;
 
 public class ProductTest implements TestInterface {
 
@@ -40,13 +38,15 @@ public class ProductTest implements TestInterface {
 
         productPage.orderByCreatedDescending();
 
-        $(By.cssSelector("#product-table > tbody > tr:nth-child(1) > td:nth-child(3) > p:nth-child(1) > a:nth-child(1)")).shouldHave(text(productPage.getProductName()));
-
+        assertEquals(productPage.getProductName(), productPage.fetchProductFromPage().getName());
+        assertEquals(productPage.getProductPrice(), productPage.convertCurrencyToString(productPage.fetchProductFromPage().getPrice()));
+        assertEquals(productPage.getProductStock(), productPage.fetchProductFromPage().getStock());
+        
 
     }
 
     @After
     public void cleanUp() {
-        productPage.removeAllProducts();
+        productPage.removeFirstProduct();
     }
 }

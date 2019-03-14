@@ -1,7 +1,9 @@
-package pages;
+package pages.product;
 
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
+import pages.AdminNavbar;
+
 import static com.codeborne.selenide.Selenide.*;
 
 
@@ -23,6 +25,10 @@ public class ProductPage {
     private final String firstProductCheckbox = "#product-table > tbody > tr:nth-child(1) > td > div > label > span > span:nth-child(2)";
     private final String productSelectId = "product-select";
     private final String sortOrderId = "sort-order-inline";
+
+    private final String firstProductNameInTable = "#product-table > tbody > tr:nth-child(1) > td:nth-child(3) > p:nth-child(1) > a:nth-child(1)";
+    private final String firstProductOriginalPriceInTable = "#product-table > tbody > tr:nth-child(1) > td:nth-child(4) > ul > li > div > div:nth-child(2) > div > div > span";
+    private final String firstProductStockInTable = "#product-table > tbody > tr:nth-child(1) > td:nth-child(4) > ul > li > div > div:nth-child(1) > div > div > span";
 
     public void handleProductCreation() {
         fillProductInfo();
@@ -60,19 +66,40 @@ public class ProductPage {
         }
     }
 
-    public void removeAllProducts() {
+    public String convertCurrencyToString(String currency) {
+        String s;
+        s = currency.substring(1);
+        return s.replace(",", ".");
+    }
+
+    public void removeFirstProduct() {
         AdminNavbar adminNavbar = new AdminNavbar();
         adminNavbar.goToMyProducts();
         $(By.cssSelector(firstProductCheckbox)).click();
         $(By.id(productSelectId)).selectOptionByValue("destroy");
     }
 
+    public Product fetchProductFromPage() {
+        Product productFromPage = new Product();
+        productFromPage.setName($(By.cssSelector(firstProductNameInTable)).getText());
+        productFromPage.setPrice($(By.cssSelector(firstProductOriginalPriceInTable)).getText());
+        productFromPage.setStock($(By.cssSelector(firstProductStockInTable)).getText());
+        return productFromPage;
+    }
+
+    public void orderByCreatedDescending() {
+        $(By.id(sortOrderId)).selectOptionByValue("created-descending");
+    }
 
     public String getProductName() {
         return productName;
     }
 
-    public void orderByCreatedDescending() {
-        $(By.id(sortOrderId)).selectOptionByValue("created-descending");
+    public String getProductPrice() {
+        return productPrice;
+    }
+
+    public String getProductStock() {
+        return productStock;
     }
 }
